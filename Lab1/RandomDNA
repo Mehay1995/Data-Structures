@@ -1,0 +1,16 @@
+import java.util.Random;
+
+
+
+public class RandomDNA {
+   static Random rnd = new Random(); 
+   static char randomDNA(char... letters) {
+      return letters[rnd.nextInt(letters.length)];
+   }
+   public static void main(String args[]) {
+      for (int i = 0; i < 20; i++) {
+         System.out.print(randomDNA('A', 'T', 'G', 'C'));
+      }
+   }   
+} 
+

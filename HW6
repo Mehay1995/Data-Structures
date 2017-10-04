@@ -1,0 +1,81 @@
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class distance {
+	static String one;
+	static String two;
+	
+	public void print() throws IOException {
+		Scanner in = new Scanner(new FileReader("DNA.txt"));
+		one = in.next();
+		two = in.next();
+		}
+		
+		
+	
+	
+	
+	static int editDistance(String n,String m){
+		
+		int[][] d = new int[n.length() +1][m.length() +1];
+		int[] a = new int[m.length()+1];
+		int[] b = new int[n.length()+1];
+		b[0] = 0;
+		a[0]= 0; 
+		int c = 0;
+		
+		for(int i = 0;i<m.length(); i++){
+			a[i+1]=m.charAt(i);
+		}
+		for(int i = 0; i<n.length(); i++){
+			b[i+1] = n.charAt(i);
+		}
+		
+		for(int i = 0; i <= m.length(); i ++) d[i][0] = i;
+		for(int j = 0; j <= n.length(); j ++) d[0][j] = j; 
+		//fill the DP table
+		for(int i = 1; i <= m.length(); i ++)  {
+		        for(int j = 1; j <= n.length(); j ++) {
+		                if(a[i] == b[j]) c = 0;
+		                else c = 1; 
+		                d[i][j] = Math.min(Math.min(d[i-1][j] + 1, d[i][j-1] + 1), d[i-1][j-1]+c);
+		        }
+		}
+		return d[m.length()][n.length()]; 
+	}
+		
+
+	public static void main(String[] args) throws IOException {
+		distance a = new distance();
+		a.print();
+		System.out.println(one);
+		System.out.println(two);
+		System.out.println(editDistance(one,two));
+		
+		
+		
+
+	}
+
+}
+
+// BOOK QUESTIONS
+/*1)
+ *	A)Array Based List, since we know how many positions are already needed, because its sorted, we can easily 
+ *increase the size of the array 
+ * 	B) A linked-list of unsorted records would be best fit, because insertions take constant time in a linked list.
+ * 	C) BST, Insertion and sort are both log(n) in time complexity 
+ * 	D) BST, Binary Search tree's are best suited for searching for value, hence the name binary SEARCH tree.
+ * Since so many searches are done in this problem, I believe the extra time that insertion will take, will be
+ * more than covered by the effective searching by a BST
+ *
+ * 2) Since A's are used more often then T's and T's are used more often then C's
+ * and C's and used more often then G's. It would be best to give A a single bit code
+ * C and double bit code, and T and G are triple bit code. This caused the compression
+ * ratio to come out to 2/1.65 = 1.21
+*/ 
+	
+
+}
